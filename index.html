@@ -64,30 +64,32 @@
                     const item = document.createElement('div');
                     item.innerHTML = '<div class="quater-title"> <img src=' + doc.data().image + ' alt=""></div>';
                     item.classList.add('quater');
-
+console.log(doc.id)
                     container.appendChild(item);
 
 
 
-                    const list = doc.ref.collection('list');;
+                    const list = firebase.firestore().collection("ROADMAP").doc(doc.id).collection("list");
 
                     list.get().then(subitemDoc => {
-                        var l = "";
+                      
                         subitemDoc.forEach((subItem) => {
                             console.log(subItem.id, " => ", subItem.data().name);
                             const subitemElement = document.createElement('ul');
                             subitemElement.classList.add('list');
                             subitemElement.setAttribute("id", "list");
-                            item.appendChild(subitemElement);
+                           
                             if (subItem.data().status === "done") {
-                                l += "<li class='quater-objective border-right' ><img src='icons/heart 2.svg' alt='x'><h5 style='color: #F61063;'>" + subItem.data().name + "</h5></li>";
+                                item.innerHTML += "<li class='quater-objective border-right' ><img src='icons/heart 2.svg' alt='x'><h5 style='color: #F61063;'>" + subItem.data().name + "</h5></li>";
 
                             } else {
-                                l += "<li class='quater-objective border-right' ><img src='icons/heart 1.svg' alt='x'><h5 >" + subItem.data().name + "</h5></li>";
+                                item.innerHTML += "<li class='quater-objective border-right' ><img src='icons/heart 1.svg' alt='x'><h5 >" + subItem.data().name + "</h5></li>";
                             }
+                            item.appendChild(subitemElement);
+                         
 
                         });
-                        document.getElementById("list").innerHTML = l;
+                     
                         var images = document.querySelectorAll("li");
 
                         images.forEach(function (image) {
@@ -113,21 +115,14 @@
             //     var l = "";
             //     params.forEach(function (param) {
             //         console.log(param.data().name);
-
-
             //         if (param.data().status === "done") {
             //             l += "<li class='quater-objective border-right' ><img src='icons/heart 2.svg' alt='x'><h5 style='color: #F61063;'>" + param.data().name + "</h5></li>";
-
             //         } else {
             //             l += "<li class='quater-objective border-right' ><img src='icons/heart 1.svg' alt='x'><h5 >" + param.data().name + "</h5></li>";
             //         }
-
-
-
             //     });
             //     document.getElementById("list").innerHTML = l;
             //     var images = document.querySelectorAll("li");
-
             //     images.forEach(function (image) {
             //         image.addEventListener("click", function () {
             //             console.log("hello");
@@ -135,14 +130,9 @@
             //                 ll.style.display = "block"
             //                 ll.style.transition = "left 10s ease-in-out"
             //                 lf.style.display = "none"
-
             //             }
-
-
             //         })
             //     })
-
-
             // })
 
         }
