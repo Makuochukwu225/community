@@ -144,7 +144,7 @@ ul {
     flex-direction: column;
     flex-grow: 2;
     background-color: #E7D38C;
-    overflow-x: auto;
+    /* overflow-x: auto; */
     width: 50%;
    
   
@@ -161,6 +161,7 @@ ul {
     display: flex;
     height: auto;
     width: 100%;
+    flex-wrap: nowrap;
     min-height: 450px;
     overflow-x: auto;
     z-index: 0;
